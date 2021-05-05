@@ -1,0 +1,3 @@
+C:/Users/nguy/Documents/TrungKien/Project/IDEE/Gits/labelImg/data/data_annotated_1/bracketsample_000180.jpg
+C:/Users/nguy/Documents/TrungKien/Project/IDEE/Gits/labelImg/data/data_annotated_1/bracketsample_000181.jpg
+C:/Users/nguy/Documents/TrungKien/Project/IDEE/Gits/labelImg/data/data_annotated_1/bracketsample_000184.jpg
