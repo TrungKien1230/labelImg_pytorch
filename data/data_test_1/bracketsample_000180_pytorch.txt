@@ -1,3 +1,0 @@
-colonettes 25 198 25 37
-colonettes 74 269 21 37
-L bracket 181 254 30 46

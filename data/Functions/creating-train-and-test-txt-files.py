@@ -5,7 +5,7 @@ Course:  Training YOLO v3 for Objects Detection with Custom Data
 
 Section-3
 Labelling new Dataset in YOLO format
-File: creating-train-and-test-txt-files.py
+File: creating_train_and_test_txt_files.py
 """
 
 
@@ -36,7 +36,7 @@ Setting up full path to directory with labelled images
 # r'C:\Users\my_name\Downloads\video-to-annotate'
 # or:
 # 'C:\\Users\\my_name\\Downloads\\video-to-annotate'
-full_path_to_images = 'C:/Users/nguy/Documents/TrungKien/Project/IDEE/Gits/labelImg/data/data_annotated_1'
+full_path_to_images = r'C:\Users\nguy\Documents\TrungKien\Project\IDEE\Gits\labelImg\data\data_test_1_1'
 
 """
 End of:

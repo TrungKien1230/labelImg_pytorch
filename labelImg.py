@@ -1381,6 +1381,11 @@ class MainWindow(QMainWindow, WindowMixin):
                 saved_file_name = os.path.splitext(image_file_name)[0]
                 saved_path = os.path.join(ustr(self.default_save_dir), saved_file_name)
                 self._save_file(saved_path)
+
+                with open(ustr(self.default_save_dir) + '\dir.txt', 'w') as draft_txt:
+                    draft_txt.write(os.path.abspath(ustr(self.default_save_dir)))
+                    draft_txt.close()
+
         else:
             image_file_dir = os.path.dirname(self.file_path)
             image_file_name = os.path.basename(self.file_path)
@@ -1388,7 +1393,9 @@ class MainWindow(QMainWindow, WindowMixin):
             saved_path = os.path.join(image_file_dir, saved_file_name)
             self._save_file(saved_path if self.label_file
                             else self.save_file_dialog(remove_ext=False))
-        print("saved_path: ", saved_path)
+            with open(image_file_dir + '\dir.txt', 'w') as draft_txt:
+                draft_txt.write(os.path.abspath(image_file_dir))
+                draft_txt.close()
         try:
             t_yolo_parse_reader = YoloReader(saved_path + '.txt', self.image)
             shapes = t_yolo_parse_reader.get_shapes()
