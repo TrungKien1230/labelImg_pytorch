@@ -9,7 +9,7 @@ from shutil import copyfile
 import cv2
 
 # Copy this path from dir.txt
-full_path_to_images = r'C:\Users\nguy\Documents\TrungKien\Project\IDEE\Gits\labelImg\data\data_test_1_2'
+full_path_to_images = r'C:\Users\nguy\Documents\TrungKien\Project\IDEE\Gits\labelImg\data\Annotated_data\dataset_merge'
 
 # Define the ratio of train/test
 percent_test = 0.15
@@ -25,7 +25,9 @@ os.chdir(full_path_to_images)
 
 # Take the list of labels
 l = open("classes.txt", "r")
-labels = l.read().split('\n')[:-1]
+labels = l.read().split('\n')
+if labels[-1] == '':
+    labels = labels[:-1]
 
 # Create file
 try:
@@ -43,16 +45,23 @@ try:
 except:
     pass
 p = list()
-
 for current_dir, dirs, files in os.walk('.'):
     # Going through all files
     for f in files:
 
         # Checking if filename ends with '.jpeg'
+        if f.endswith('.png'):
+            g = f.split('.')
+            os.rename(f, r'%s.jpg' % g[0])
+    break
+for current_dir, dirs, files in os.walk('.'):
+    # Going through all files
+    for f in files:
 
+        # Checking if filename ends with '.jpeg'
         if f.endswith('.jpg'):
             with open(f.split('.')[0]+'_pytorch'+'.txt', 'r+') as draft_txt:
-
+                print(f)
                 # Going through all elements of the list
                 cont = draft_txt.read().split('\n')[:-1]
                 cont = [i.split(' ') for i in cont]
@@ -74,16 +83,18 @@ for current_dir, dirs, files in os.walk('.'):
                         val = val[-4:]
                         val.append(idx_label)
 
+                    x_min = int(int(val[0]) * resized_width / img_shape[1])
+                    y_min = int(int(val[1]) * resized_height / img_shape[0])
+                    width = int(int(val[2]) * resized_width / img_shape[1])
+                    length = int(int(val[3]) * resized_height / img_shape[0])
+                    x_max = x_min + width
+                    y_max = y_min + length
+                    class_label = val[4]
                     if idx != len(cont)-1:
-                        anno = anno + str(int(int(val[0]) * resized_width / img_shape[1])) + ',' + str(
-                            int(int(val[1]) * resized_height / img_shape[0])) + ',' + str(int(int(
-                            val[2]) * resized_width / img_shape[1])) + ',' + str(
-                            int(int(val[3]) * resized_height / img_shape[0])) + ',' + val[4] + ' '
+
+                        anno = anno + str(x_min) + ',' + str(y_min) + ',' + str(x_max) + ',' + str(y_max) + ',' + class_label + ' '
                     else:
-                        anno = anno + str(int(int(val[0]) * resized_width / img_shape[1])) + ',' + str(
-                            int(int(val[1]) * resized_height / img_shape[0])) + ',' + str(int(int(
-                            val[2]) * resized_width / img_shape[1])) + ',' + str(
-                            int(int(val[3]) * resized_height / img_shape[0])) + ',' + val[4] + '\n'
+                        anno = anno + str(x_min) + ',' + str(y_min) + ',' + str(x_max) + ',' + str(y_max) + ',' + class_label + '\n'
                 p.append(anno)
     break
 
